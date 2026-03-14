@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Image, Palette, Sparkles } from "lucide-react";
+import portfolioAngioplasty from "@/assets/portfolio-angioplasty.jpg";
+import portfolioPodcast from "@/assets/portfolio-podcast.png";
 
 const categories = [
   { id: "all", label: "All" },
@@ -12,15 +14,17 @@ const categories = [
 ];
 
 const projects = [
-  { id: 1, title: "Brand Campaign Film", category: "video", aspect: "16/9", icon: Play, color: "from-primary/20 to-accent/30" },
-  { id: 2, title: "Wedding Cinematic", category: "cinematic", aspect: "16/9", icon: Play, color: "from-primary/15 to-secondary/40" },
-  { id: 3, title: "Product Shoot", category: "photo", aspect: "4/5", icon: Image, color: "from-accent/30 to-muted/50" },
-  { id: 4, title: "Social Media Reel", category: "video", aspect: "16/9", icon: Play, color: "from-secondary/30 to-primary/15" },
-  { id: 5, title: "Logo Animation", category: "motion", aspect: "16/9", icon: Sparkles, color: "from-primary/25 to-accent/20" },
-  { id: 6, title: "Brand Identity", category: "design", aspect: "4/5", icon: Palette, color: "from-muted/40 to-accent/30" },
-  { id: 7, title: "Event Coverage", category: "cinematic", aspect: "16/9", icon: Play, color: "from-accent/20 to-primary/10" },
-  { id: 8, title: "Portrait Series", category: "photo", aspect: "4/5", icon: Image, color: "from-secondary/20 to-muted/40" },
-  { id: 9, title: "Packaging Design", category: "design", aspect: "4/5", icon: Palette, color: "from-primary/10 to-secondary/30" },
+  { id: 1, title: "Dr. Sheetalkumar Hiran – Angioplasty", category: "design", aspect: "9/16", icon: Palette, color: "from-primary/20 to-accent/30", image: portfolioAngioplasty },
+  { id: 2, title: "Gen Z Podcast Thumbnail", category: "design", aspect: "9/16", icon: Palette, color: "from-primary/15 to-secondary/40", image: portfolioPodcast },
+  { id: 3, title: "Brand Campaign Film", category: "video", aspect: "16/9", icon: Play, color: "from-primary/20 to-accent/30", image: null },
+  { id: 4, title: "Wedding Cinematic", category: "cinematic", aspect: "16/9", icon: Play, color: "from-primary/15 to-secondary/40", image: null },
+  { id: 5, title: "Product Shoot", category: "photo", aspect: "4/5", icon: Image, color: "from-accent/30 to-muted/50", image: null },
+  { id: 6, title: "Social Media Reel", category: "video", aspect: "16/9", icon: Play, color: "from-secondary/30 to-primary/15", image: null },
+  { id: 7, title: "Logo Animation", category: "motion", aspect: "16/9", icon: Sparkles, color: "from-primary/25 to-accent/20", image: null },
+  { id: 8, title: "Brand Identity", category: "design", aspect: "4/5", icon: Palette, color: "from-muted/40 to-accent/30", image: null },
+  { id: 9, title: "Event Coverage", category: "cinematic", aspect: "16/9", icon: Play, color: "from-accent/20 to-primary/10", image: null },
+  { id: 10, title: "Portrait Series", category: "photo", aspect: "4/5", icon: Image, color: "from-secondary/20 to-muted/40", image: null },
+  { id: 11, title: "Packaging Design", category: "design", aspect: "4/5", icon: Palette, color: "from-primary/10 to-secondary/30", image: null },
 ];
 
 const PortfolioSection = () => {
@@ -74,9 +78,17 @@ const PortfolioSection = () => {
                     className="group relative surface-card rounded-xl overflow-hidden cursor-pointer"
                     style={{ aspectRatio: project.aspect }}
                   >
-                    {/* Gradient placeholder */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${project.color}`} />
-                    
+                    {/* Image or gradient placeholder */}
+                    {project.image ? (
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className={`absolute inset-0 bg-gradient-to-br ${project.color}`} />
+                    )}
+
                     {/* Hover overlay */}
                     <div className="absolute inset-0 bg-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                       <Icon size={40} className="text-primary opacity-0 group-hover:opacity-80 transition-opacity duration-300" />
