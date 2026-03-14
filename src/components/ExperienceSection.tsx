@@ -23,51 +23,91 @@ const experiences = [
 ];
 
 const ExperienceSection = () => (
-  <section id="experience" className="py-24 relative">
+  <section id="experience" className="py-24 relative overflow-hidden">
+    <div className="absolute bottom-0 left-0 w-80 h-80 bg-primary/3 blur-[120px] rounded-full" />
     <div className="container mx-auto px-6">
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
+      <motion.p
+        className="section-number mb-4"
+        initial={{ opacity: 0, x: -20 }}
+        whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <p className="section-number mb-4">03 // Experience</p>
-        <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tighter mb-12">
-          Experience
-        </h2>
-        <div className="relative pl-8">
-          <div className="absolute left-0 top-0 bottom-0 timeline-line" />
-          <div className="space-y-10">
-            {experiences.map((item, i) => (
+        03 // Experience
+      </motion.p>
+      <motion.h2
+        className="text-4xl md:text-5xl font-display font-bold tracking-tighter mb-12"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+      >
+        Experience
+      </motion.h2>
+      <div className="relative pl-8">
+        <motion.div
+          className="absolute left-0 top-0 bottom-0 timeline-line"
+          initial={{ scaleY: 0 }}
+          whileInView={{ scaleY: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          style={{ transformOrigin: "top" }}
+        />
+        <div className="space-y-10">
+          {experiences.map((item, i) => (
+            <motion.div
+              key={i}
+              className="relative"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 + i * 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            >
               <motion.div
-                key={i}
-                className="relative"
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                className="absolute -left-8 top-1 w-3 h-3 rounded-full bg-primary"
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.4 }}
+                transition={{ delay: 0.4 + i * 0.2, type: "spring", stiffness: 300 }}
+              />
+              <motion.div
+                className="surface-card p-6 rounded-xl group"
+                whileHover={{ x: 8, transition: { duration: 0.3 } }}
               >
-                <div className="absolute -left-8 top-1 w-2 h-2 rounded-full bg-primary" />
-                <div className="surface-card p-6 rounded-xl">
-                  <p className="font-mono text-xs text-primary tracking-widest tabular-nums mb-2">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="font-mono text-xs text-primary tracking-widest tabular-nums">
                     {item.year}
                   </p>
-                  <h3 className="font-display font-semibold text-lg flex items-center gap-2">
-                    <Briefcase size={18} className="text-primary" />
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mt-1">{item.desc}</p>
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    {item.tags.map((tag) => (
-                      <span key={tag} className="skill-pill text-xs">{tag}</span>
-                    ))}
-                  </div>
+                  <motion.div
+                    className="w-2 h-2 rounded-full bg-primary/50"
+                    animate={{ opacity: [0.3, 1, 0.3] }}
+                    transition={{ repeat: Infinity, duration: 2, delay: i * 0.5 }}
+                  />
+                </div>
+                <h3 className="font-display font-semibold text-lg flex items-center gap-2">
+                  <Briefcase size={18} className="text-primary" />
+                  {item.title}
+                </h3>
+                <p className="text-sm text-muted-foreground mt-1">{item.desc}</p>
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {item.tags.map((tag, j) => (
+                    <motion.span
+                      key={tag}
+                      className="skill-pill text-xs"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.5 + i * 0.2 + j * 0.08 }}
+                    >
+                      {tag}
+                    </motion.span>
+                  ))}
                 </div>
               </motion.div>
-            ))}
-          </div>
+            </motion.div>
+          ))}
         </div>
-      </motion.div>
+      </div>
     </div>
   </section>
 );

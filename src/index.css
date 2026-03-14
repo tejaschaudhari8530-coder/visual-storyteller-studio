@@ -47,6 +47,7 @@
 
     --shadow-card: 0 8px 16px -4px rgba(0, 0, 0, 0.5);
     --shadow-glow: 0 0 40px -10px hsl(45 100% 50% / 0.15);
+    --shadow-glow-lg: 0 0 80px -20px hsl(45 100% 50% / 0.2);
   }
 }
 
@@ -61,6 +62,11 @@
 
   h1, h2, h3, h4 {
     text-wrap: balance;
+  }
+
+  ::selection {
+    background: hsl(45 100% 50% / 0.3);
+    color: hsl(0 0% 98%);
   }
 }
 
@@ -101,12 +107,27 @@
   .surface-card {
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), var(--shadow-card);
     @apply bg-card rounded-xl;
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+  }
+
+  .surface-card:hover {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), var(--shadow-card), var(--shadow-glow);
   }
 
   .skill-pill {
     @apply px-4 py-1.5 rounded-lg text-sm font-mono tracking-wider uppercase;
     background: hsl(var(--muted) / 0.5);
     backdrop-filter: blur(8px);
+    border: 1px solid hsl(var(--border) / 0.5);
+    transition: all 0.3s ease;
+  }
+
+  .skill-pill:hover {
+    background: hsl(var(--primary) / 0.15);
+    border-color: hsl(var(--primary) / 0.3);
+    color: hsl(var(--primary));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px hsl(var(--primary) / 0.1);
   }
 
   .section-number {
@@ -114,7 +135,8 @@
   }
 
   .timeline-line {
-    @apply w-px bg-muted;
+    @apply w-px;
+    background: linear-gradient(to bottom, hsl(var(--primary) / 0.3), hsl(var(--muted)), hsl(var(--primary) / 0.3));
   }
 
   .gradient-mask-left {
@@ -127,6 +149,11 @@
            bg-primary text-primary-foreground
            transition-all duration-300 ease-out
            hover:-translate-y-0.5 active:scale-95;
+    box-shadow: 0 4px 20px hsl(var(--primary) / 0.3);
+  }
+
+  .btn-primary-cinema:hover {
+    box-shadow: 0 8px 30px hsl(var(--primary) / 0.45);
   }
 
   .btn-secondary-cinema {
@@ -134,6 +161,32 @@
            border border-accent text-foreground
            transition-all duration-300 ease-out
            hover:bg-accent hover:-translate-y-0.5 active:scale-95;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, hsl(45 100% 50%), hsl(38 100% 65%), hsl(45 100% 50%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-ring {
+    box-shadow: 0 0 0 1px hsl(var(--primary) / 0.2), 0 0 20px hsl(var(--primary) / 0.1);
+  }
+
+  /* Scanline effect for cinematic feel */
+  .scanline-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px
+    );
+    pointer-events: none;
   }
 }
 

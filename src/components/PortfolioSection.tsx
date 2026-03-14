@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Image, Palette, Sparkles } from "lucide-react";
+import { Play, Image, Palette, Sparkles, ExternalLink } from "lucide-react";
 import portfolioAngioplasty from "@/assets/portfolio-angioplasty.jpg";
 import portfolioPodcast from "@/assets/portfolio-podcast.png";
 
@@ -32,86 +32,109 @@ const PortfolioSection = () => {
   const filtered = active === "all" ? projects : projects.filter((p) => p.category === active);
 
   return (
-    <section id="portfolio" className="py-24 relative">
+    <section id="portfolio" className="py-24 relative overflow-hidden">
+      <div className="absolute top-0 left-1/2 w-[600px] h-[600px] bg-primary/3 blur-[200px] rounded-full -translate-x-1/2" />
       <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        <motion.p
+          className="section-number mb-4"
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="section-number mb-4">05 // Portfolio</p>
-          <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tighter mb-8">
-            Selected <span className="text-primary">Work</span>
-          </h2>
+          05 // Portfolio
+        </motion.p>
+        <motion.h2
+          className="text-4xl md:text-5xl font-display font-bold tracking-tighter mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          Selected <span className="text-gradient-gold">Work</span>
+        </motion.h2>
 
-          {/* Filters */}
-          <div className="flex flex-wrap gap-2 mb-10">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActive(cat.id)}
-                className={`font-mono text-xs uppercase tracking-[0.15em] px-4 py-2 rounded-lg transition-all duration-300 ${
-                  active === cat.id
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted/50 text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {cat.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            <AnimatePresence mode="popLayout">
-              {filtered.map((project) => {
-                const Icon = project.icon;
-                return (
-                  <motion.div
-                    key={project.id}
-                    layout
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.3 }}
-                    className="group relative surface-card rounded-xl overflow-hidden cursor-pointer"
-                    style={{ aspectRatio: project.aspect }}
-                  >
-                    {/* Image or gradient placeholder */}
-                    {project.image ? (
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className={`absolute inset-0 bg-gradient-to-br ${project.color}`} />
-                    )}
-
-                    {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <Icon size={40} className="text-primary opacity-0 group-hover:opacity-80 transition-opacity duration-300" />
-                    </div>
-
-                    {/* Timecode */}
-                    <div className="absolute top-3 right-3 font-mono text-[10px] text-foreground/40 tracking-widest">
-                      {String(project.id).padStart(2, "0")}:00:00
-                    </div>
-
-                    {/* Title */}
-                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/80 to-transparent">
-                      <p className="font-display font-semibold text-sm">{project.title}</p>
-                      <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                        {project.category}
-                      </p>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </div>
+        {/* Filters */}
+        <motion.div
+          className="flex flex-wrap gap-2 mb-10"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          {categories.map((cat) => (
+            <motion.button
+              key={cat.id}
+              onClick={() => setActive(cat.id)}
+              className={`font-mono text-xs uppercase tracking-[0.15em] px-4 py-2 rounded-lg transition-all duration-300 ${
+                active === cat.id
+                  ? "bg-primary text-primary-foreground shadow-[0_4px_20px_hsl(45_100%_50%/0.3)]"
+                  : "bg-muted/50 text-muted-foreground hover:text-foreground hover:bg-muted"
+              }`}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {cat.label}
+            </motion.button>
+          ))}
         </motion.div>
+
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <AnimatePresence mode="popLayout">
+            {filtered.map((project, i) => {
+              const Icon = project.icon;
+              return (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, y: -10 }}
+                  transition={{ duration: 0.4, delay: i * 0.05 }}
+                  className="group relative surface-card rounded-xl overflow-hidden cursor-pointer"
+                  style={{ aspectRatio: project.aspect }}
+                >
+                  {/* Image or gradient placeholder */}
+                  {project.image ? (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  ) : (
+                    <div className={`absolute inset-0 bg-gradient-to-br ${project.color} transition-transform duration-700 group-hover:scale-110`} />
+                  )}
+
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-background/70 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center gap-3 backdrop-blur-sm">
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      whileHover={{ scale: 1 }}
+                      className="w-14 h-14 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center"
+                    >
+                      <Icon size={24} className="text-primary" />
+                    </motion.div>
+                    <ExternalLink size={16} className="text-muted-foreground opacity-0 group-hover:opacity-60 transition-opacity duration-500 delay-100" />
+                  </div>
+
+                  {/* Timecode */}
+                  <div className="absolute top-3 right-3 font-mono text-[10px] text-foreground/40 tracking-widest">
+                    {String(project.id).padStart(2, "0")}:00:00
+                  </div>
+
+                  {/* Title */}
+                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/90 via-background/50 to-transparent">
+                    <p className="font-display font-semibold text-sm">{project.title}</p>
+                    <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                      {project.category}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );
