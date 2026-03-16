@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { GraduationCap } from "lucide-react";
 
 const education = [
-  { year: "2020–2021", title: "12th Pass", institution: "Pratap College" },
+  { year: "2020–2021", title: "HSC Pass", institution: "Pratap College" },
   { year: "2023–2024", title: "Graduation in B.A", institution: "Pratap College" },
 ];
 

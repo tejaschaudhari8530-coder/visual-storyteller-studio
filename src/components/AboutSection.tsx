@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import umeshPortrait from "@/assets/umesh-portrait.png";
+import umeshPortrait from "@/assets/umesh-portrait1.png";
 
 const AboutSection = () => (
   <section id="about" className="py-24 relative overflow-hidden">
@@ -31,7 +31,7 @@ const AboutSection = () => (
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="relative w-64 h-80 group">
+            <div className="relative w-96 h-90 group">
               {/* Gold border frame */}
               <motion.div
                 className="absolute -inset-2 rounded-xl border border-primary/20"
@@ -40,7 +40,7 @@ const AboutSection = () => (
               />
               <div className="relative w-full h-full rounded-xl overflow-hidden surface-card">
                 <img
-                  src={umeshPortrait}
+                  src={umeshPortrait} style={{objectFit : "cover"}}
                   alt="Umesh Chaudhari"
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />
