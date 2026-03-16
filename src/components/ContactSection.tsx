@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Mail, MapPin, ArrowUpRight } from "lucide-react";
+import { Send, Mail, MapPin, ArrowUpRight, Phone, Linkedin, ExternalLink } from "lucide-react";
 import umeshPortrait from "@/assets/umesh-portrait.png";
 
 const ContactSection = () => {
@@ -19,6 +19,13 @@ const ContactSection = () => {
     `w-full bg-muted/30 border rounded-lg px-4 py-3 text-sm font-body text-foreground placeholder:text-muted-foreground/50 focus:outline-none transition-all duration-300 ${
       focused === field ? "border-primary/50 shadow-[0_0_15px_hsl(45_100%_50%/0.1)]" : "border-border/50"
     }`;
+
+  const contactInfo = [
+    { icon: Phone, label: "Phone", value: "+91 9561447383", href: "tel:+919561447383" },
+    { icon: Mail, label: "Email", value: "Available for freelance", href: "#" },
+    { icon: MapPin, label: "Location", value: "India", href: "#" },
+    { icon: Linkedin, label: "LinkedIn", value: "umesh-chaudhari-844b38317", href: "https://www.linkedin.com/in/umesh-chaudhari-844b38317/" },
+  ];
 
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
@@ -62,16 +69,31 @@ const ContactSection = () => {
             </motion.div>
             <h3 className="font-display font-bold text-xl">Umesh Chaudhari</h3>
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              Cinematographer & Editor
+              Video Editor & Visual Creator
             </p>
             <div className="w-12 h-px bg-primary/30" />
-            <div className="space-y-3 text-sm text-muted-foreground pt-2">
-              <p className="flex items-center gap-2 justify-center">
-                <Mail size={14} className="text-primary" /> Available for freelance
-              </p>
-              <p className="flex items-center gap-2 justify-center">
-                <MapPin size={14} className="text-primary" /> India
-              </p>
+            <div className="space-y-3 text-sm text-muted-foreground pt-2 w-full">
+              {contactInfo.map((item, i) => (
+                <motion.a
+                  key={item.label}
+                  href={item.href}
+                  target={item.href.startsWith("http") ? "_blank" : undefined}
+                  rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-primary/5 transition-colors group"
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <item.icon size={16} className="text-primary flex-shrink-0" />
+                  <span className="text-foreground/80 group-hover:text-foreground transition-colors truncate">
+                    {item.value}
+                  </span>
+                  {item.href.startsWith("http") && (
+                    <ExternalLink size={12} className="text-muted-foreground/50 ml-auto" />
+                  )}
+                </motion.a>
+              ))}
             </div>
           </motion.div>
 
